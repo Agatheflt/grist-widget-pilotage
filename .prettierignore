@@ -1,0 +1,12 @@
+# Fichiers générés
+dist/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
+
+# Documentation rédigée à la main : sa mise en forme n'est pas modifiée automatiquement
+*.md
+
+# Données de travail non publiées
+donnees-privees/
