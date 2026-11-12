@@ -48,8 +48,9 @@ export default tseslint.config(
     },
   },
   {
-    // La couche grist/ est la seule autorisée à toucher window.grist.
-    files: ['src/grist/**'],
+    // La couche grist/ est la seule autorisée à toucher window.grist,
+    // avec la sonde de validation de l'API (outil de test T1.02, hors widget).
+    files: ['src/grist/**', 'outils/sonde-grist/**'],
     rules: {
       'no-restricted-syntax': ['error', ...apiDangereuses],
       'no-restricted-globals': 'off',

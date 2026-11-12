@@ -8,5 +8,15 @@ export default defineConfig({
   base: '/grist-widget-pilotage/',
   server: { port: 5173, strictPort: true },
   preview: { port: 4173, strictPort: true },
-  build: { outDir: 'dist', sourcemap: true },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+    rollupOptions: {
+      // Deux pages publiées : le widget et la sonde de validation de l'API Grist (T1.02).
+      input: {
+        widget: 'index.html',
+        sonde: 'outils/sonde-grist/index.html',
+      },
+    },
+  },
 });

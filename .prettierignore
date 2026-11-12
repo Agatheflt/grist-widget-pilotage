@@ -10,3 +10,6 @@ package-lock.json
 
 # Données de travail non publiées
 donnees-privees/
+
+# Cache hors projet
+.impeccable/

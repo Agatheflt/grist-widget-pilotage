@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sonde Grist — Pilotage de la stratégie SIGNAL</title>
+    <!-- API des widgets Grist (docs/00 §2.1). -->
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+    <link rel="stylesheet" href="./sonde.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Sonde de validation de l'API Grist</h1>
+      <p>
+        Outil de la tâche T1.02. À utiliser <strong>uniquement dans un document Grist fictif</strong> :
+        certains essais créent puis suppriment des tables préfixées « Sonde ».
+      </p>
+      <p id="etat" role="status">Connexion à Grist…</p>
+
+      <h2>Essais</h2>
+      <div id="essais"></div>
+
+      <h2>Journal</h2>
+      <p>
+        <button type="button" id="copier">Copier le rapport</button>
+        <span id="copie" role="status"></span>
+      </p>
+      <ol id="journal" aria-live="polite"></ol>
+      <textarea id="rapport" aria-label="Rapport à copier" readonly hidden></textarea>
+    </main>
+    <script type="module" src="./sonde.ts"></script>
+  </body>
+</html>

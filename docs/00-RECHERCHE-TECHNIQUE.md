@@ -367,3 +367,32 @@ Ces points sont traités par la tâche de validation technique **T1.02** (voir `
 | VAL-17 | Identification sans écriture : avec une règle d'accès de lecture limitée à `rec.Courriel == user.Email.lower()` sur `Profils`, `fetchTable('Profils')` ne renvoie-t-il que la ligne de l'utilisateur ? Quel est le comportement pour le propriétaire du document ? | Deux comptes fictifs ; journaliser la réponse |
 | VAL-18 | L'assistant peut-il créer une page native (vues, sections, graphique) via `applyUserActions` (`AddView`, `AddSection`…), ou faut-il une procédure manuelle ? | Essai dans un document fictif ; à défaut, procédure `docs/page-synthese-grist.md` |
 | VAL-19 | Les règles d'accès « attribut utilisateur » (table `Personnes`, `user.Personne.Role`) et les conditions sur `rec`/`newRec` permettent-elles d'exprimer TECH-160 ? | Essai sur document fictif, consigné dans `docs/regles-acces-grist.md` |
+
+---
+
+## 8. Résultats de validation (tâche T1.02)
+
+> Section remplie à partir du rapport de la sonde (`outils/sonde-grist/`, mode d'emploi `outils/sonde-grist/MODE-EMPLOI.md`), exécutée dans un document **fictif** sur `grist.numerique.gouv.fr`.
+> Statuts : **Confirmé**, **Infirmé**, **Partiel**, **Non testé**.
+
+| ID | Résultat | Statut | Conséquence |
+|---|---|---|---|
+| VAL-01 | — | Non testé | — |
+| VAL-02 | — | Non testé | — |
+| VAL-03 | — | Non testé | — |
+| VAL-04 | — | Non testé | — |
+| VAL-05 | — | Non testé | — |
+| VAL-06 | — | Non testé | — |
+| VAL-07 | — | Non testé | — |
+| VAL-08 | — | Non testé | — |
+| VAL-09 | — | Non testé | — |
+| VAL-10 | — | Non testé | — |
+| VAL-11 | — | Non testé | — |
+| VAL-12 | Reporté à T1.03 (intégration des couleurs et polices DSFR) | Non testé | — |
+| VAL-13 | — | Non testé | — |
+| VAL-14 | — | Non testé | — |
+| VAL-15 | — | Non testé | — |
+| VAL-16 | — | Non testé | — |
+| VAL-17 | — | Non testé | — |
+| VAL-18 | — | Non testé | — |
+| VAL-19 | — | Non testé | — |
