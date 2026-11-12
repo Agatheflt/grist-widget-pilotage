@@ -3,7 +3,9 @@ import { describe, expect, it } from 'vitest';
 import {
   actionsCreationTables,
   actionsSuppressionTables,
+  afficherValeurRelue,
   colonne,
+  reglagesRecalcul,
   compterLignes,
   dateEnSecondesUTC,
   decrireFormatTable,
@@ -61,8 +63,52 @@ describe('actions de la sonde', () => {
     expect(tablesCreees).toEqual([...TABLES_SONDE]);
   });
 
-  it('supprime les tables dans l’ordre inverse de leur création', () => {
-    expect(actionsSuppressionTables().map((action) => action[1])).toEqual([...TABLES_SONDE].reverse());
+  it('supprime toutes les tables « Sonde… », doublons compris, et elles seules', () => {
+    const tables = ['Test_table', ...TABLES_SONDE, 'SondeTest2', 'Actions'];
+    expect(actionsSuppressionTables(tables).map((action) => action[1])).toEqual([
+      'SondeTest2',
+      ...[...TABLES_SONDE].reverse(),
+    ]);
+  });
+
+  it('ne supprime rien quand il n’y a aucune table de test', () => {
+    expect(actionsSuppressionTables(['Test_table'])).toEqual([]);
+  });
+});
+
+describe('réglage de MajLe (VAL-11)', () => {
+  it('applique recalcWhen par ModifyColumn après la création de SondeTest', () => {
+    const actions = actionsCreationTables();
+    const creation = actions.findIndex((a) => a[0] === 'AddTable' && a[1] === 'SondeTest');
+    const reglage = actions.findIndex((a) => a[0] === 'ModifyColumn' && a[2] === 'MajLe');
+    expect(reglage).toBeGreaterThan(creation);
+    expect(actions[reglage]?.[3]).toEqual({ recalcWhen: 2, recalcDeps: null });
+  });
+
+  it('lit le réglage de recalcul dans la structure du document', () => {
+    const tables = { id: [1, 2], tableId: ['Autre', 'SondeTest'] };
+    const colonnes = {
+      id: [10, 11],
+      parentId: [1, 2],
+      colId: ['MajLe', 'MajLe'],
+      recalcWhen: [0, 2],
+      recalcDeps: [null, null],
+    };
+    expect(reglagesRecalcul(colonnes, tables, 'SondeTest', 'MajLe')).toBe(
+      'recalcWhen = 2, recalcDeps = null',
+    );
+    expect(reglagesRecalcul(colonnes, tables, 'SondeTest', 'Absente')).toBe('colonne introuvable');
+  });
+});
+
+describe('afficherValeurRelue', () => {
+  it('masque le contenu des textes', () => {
+    expect(afficherValeurRelue('Nom Réel')).toBe('string de 8 caractère(s) (contenu masqué)');
+  });
+
+  it('affiche les autres valeurs', () => {
+    expect(afficherValeurRelue(['L', 7, 8])).toBe('liste encodée [\'L\', …] de 2 élément(s) = ["L",7,8]');
+    expect(afficherValeurRelue(12.5)).toBe('number = 12.5');
   });
 });
 

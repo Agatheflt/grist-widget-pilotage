@@ -17,6 +17,10 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
 - Workflow de déploiement GitHub Pages **manuel** (`.github/workflows/deploiement-pages.yml`), avancé depuis T1.18 pour publier la sonde.
 - Section « Résultats de validation » dans `docs/00` (§8), à remplir avec le rapport de la sonde.
 
+- Résultats de la première série d'essais de la sonde consignés dans `docs/00` §8 (VAL-03, 04, 05, 08, 09, 10, 13, 14, 15 confirmés).
+
 ### Modifié
+
+- Sonde : textes relus masqués (seule la longueur est affichée), nettoyage de toutes les tables « Sonde… » (doublons compris), affichage de la table liée à la section (VAL-01).
 
 - Tests dans un navigateur et dans un Grist local exécutés uniquement par la CI GitHub (DEC-028) ; aucun navigateur de test installé sur le poste.
