@@ -399,6 +399,6 @@ Ces points sont traités par la tâche de validation technique **T1.02** (voir `
 | VAL-18 | `["CreateViewSection", <id de la table>, 0, "record", null, null]` accepté : une **nouvelle page** affichant la table `SondeTest` apparaît dans le document | Confirmé | La page « Synthèse SIGNAL » (FONC-086) pourra être créée par l'assistant (T2.14) ; la mise en forme fine (graphique, tri) reste à valider à ce moment-là |
 | VAL-19 | Non testé | Non testé | À faire en T1.21 |
 
-**Synthèse (clôture de T1.02)** : 15 points confirmés (VAL-01 à 06, 08 à 11, 13 à 15, 18) ; VAL-16 non vérifié sans impact bloquant ; VAL-12 reporté à T1.03 ; VAL-07 (compte lecteur), VAL-17 et VAL-19 reportés à T1.21 (second compte nécessaire). **Aucun point infirmé ne remet en cause l'architecture** de `02`. La condition posée pour DEC-003 (fonctionnement dans Grist) est remplie à ce stade ; elle sera revérifiée avec le widget publié en T1.18.
+**Synthèse (clôture de T1.02)** : 14 points confirmés (VAL-01 à 06, 08 à 11, 13 à 15, 18) ; VAL-16 non vérifié sans impact bloquant ; VAL-12 reporté à T1.03 ; VAL-07 (compte lecteur), VAL-17 et VAL-19 reportés à T1.21 (second compte nécessaire). **Aucun point infirmé ne remet en cause l'architecture** de `02`. La condition posée pour DEC-003 (fonctionnement dans Grist) est remplie à ce stade ; elle sera revérifiée avec le widget publié en T1.18.
 
 **Remarque** : les tables de test ont été créées deux fois (suffixe `2` ajouté par Grist au second passage). Le bouton de nettoyage supprime désormais toutes les tables commençant par « Sonde ».

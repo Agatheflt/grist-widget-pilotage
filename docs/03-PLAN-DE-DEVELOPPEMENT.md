@@ -30,7 +30,7 @@ Décisions obtenues le 12/11/2026 : Q-002 (dépôt public), DEC-008 (couleurs et
 | ID | Tâche | Prérequis | Exigences | Statut |
 |---|---|---|---|---|
 | T1.01 | Initialiser le projet | Décisions de démarrage | TECH-001, 010–013, 020–022, 030 | Terminée (12/11/2026, PR #1) |
-| T1.02 | Valider l'API Grist (sonde) | T1.01 | VAL-01…19, TECH-060, 064, 065, 080 | Terminée (12/11/2026, PR #2, #3 et clôture) — 15 points confirmés, voir `00` §8 |
+| T1.02 | Valider l'API Grist (sonde) | T1.01 | VAL-01…19, TECH-060, 064, 065, 080 | Terminée (12/11/2026, PR #2, #3 et clôture) — 14 points confirmés, voir `00` §8 |
 | T1.03 | Intégrer couleurs et polices DSFR, thème, CSP | T1.01 | UX-020, 023, TECH-113, 120 | À faire |
 | T1.22 | Composants de base et vitrine | T1.03 | UX-004–009, 020–022 | À faire |
 | T1.04 | Modèles du domaine | T1.01 | TECH-031, 071 | À faire |
