@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   actionsCreationTables,
   actionsSuppressionTables,
+  afficherValeurRelue,
   colonne,
   compterLignes,
   dateEnSecondesUTC,
@@ -61,8 +62,27 @@ describe('actions de la sonde', () => {
     expect(tablesCreees).toEqual([...TABLES_SONDE]);
   });
 
-  it('supprime les tables dans l’ordre inverse de leur création', () => {
-    expect(actionsSuppressionTables().map((action) => action[1])).toEqual([...TABLES_SONDE].reverse());
+  it('supprime toutes les tables « Sonde… », doublons compris, et elles seules', () => {
+    const tables = ['Test_table', ...TABLES_SONDE, 'SondeTest2', 'Actions'];
+    expect(actionsSuppressionTables(tables).map((action) => action[1])).toEqual([
+      'SondeTest2',
+      ...[...TABLES_SONDE].reverse(),
+    ]);
+  });
+
+  it('ne supprime rien quand il n’y a aucune table de test', () => {
+    expect(actionsSuppressionTables(['Test_table'])).toEqual([]);
+  });
+});
+
+describe('afficherValeurRelue', () => {
+  it('masque le contenu des textes', () => {
+    expect(afficherValeurRelue('Nom Réel')).toBe('string de 8 caractère(s) (contenu masqué)');
+  });
+
+  it('affiche les autres valeurs', () => {
+    expect(afficherValeurRelue(['L', 7, 8])).toBe('liste encodée [\'L\', …] de 2 élément(s) = ["L",7,8]');
+    expect(afficherValeurRelue(12.5)).toBe('number = 12.5');
   });
 });
 

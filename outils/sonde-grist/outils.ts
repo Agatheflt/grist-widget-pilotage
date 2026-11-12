@@ -125,9 +125,24 @@ export function actionsCreationTables(): ActionGrist[] {
   ];
 }
 
-/** Actions de suppression de toutes les tables de test. */
-export function actionsSuppressionTables(): ActionGrist[] {
-  return [...TABLES_SONDE].reverse().map((table) => ['RemoveTable', table]);
+/**
+ * Actions de suppression de toutes les tables de test présentes dans le document,
+ * y compris les doublons créés par Grist (ex. « SondeTest2 »). Les autres tables ne sont jamais touchées.
+ */
+export function actionsSuppressionTables(tablesDuDocument: string[]): ActionGrist[] {
+  return tablesDuDocument
+    .filter((table) => table.startsWith(PREFIXE))
+    .reverse()
+    .map((table) => ['RemoveTable', table]);
+}
+
+/**
+ * Texte affiché pour une valeur relue : les textes ne sont jamais affichés (ils peuvent contenir
+ * un nom réel, comme la colonne CreePar), seulement leur longueur ; les autres valeurs le sont.
+ */
+export function afficherValeurRelue(valeur: unknown): string {
+  if (typeof valeur === 'string') return `string de ${valeur.length} caractère(s) (contenu masqué)`;
+  return `${decrireValeur(valeur)} = ${JSON.stringify(valeur)}`;
 }
 
 /** Met en forme le rapport à copier pour Claude Code : seulement les résultats, sans données du document. */

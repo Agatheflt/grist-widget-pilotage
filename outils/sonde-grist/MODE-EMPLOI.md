@@ -50,5 +50,6 @@ Si la sonde s'affiche avec « Connecté à Grist », **VAL-15 est validé** : l'
 
 ## 5. Confidentialité
 
-- Le rapport ne contient que des formes de valeurs, des compteurs et des messages techniques. Il ne contient ni le nom du document ni son adresse.
+- Le rapport ne contient que des formes de valeurs, des compteurs et des messages techniques. Il ne contient ni le nom du document ni son adresse. Les textes relus (par exemple `CreePar`, qui contient ton nom d'utilisateur Grist) sont masqués : seule leur longueur est affichée.
+- Clique **Créer** une seule fois : un second clic crée des doublons (`SondeTest2`…). Le bouton **Supprimer** les retire tous.
 - Ne copie pas l'adresse du document de test dans le dépôt GitHub.

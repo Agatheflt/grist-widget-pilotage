@@ -375,24 +375,28 @@ Ces points sont traités par la tâche de validation technique **T1.02** (voir `
 > Section remplie à partir du rapport de la sonde (`outils/sonde-grist/`, mode d'emploi `outils/sonde-grist/MODE-EMPLOI.md`), exécutée dans un document **fictif** sur `grist.numerique.gouv.fr`.
 > Statuts : **Confirmé**, **Infirmé**, **Partiel**, **Non testé**.
 
+**Première série : 12/11/2026**, compte propriétaire du document. Le rapport brut n'est pas versionné, car il contenait l'identifiant réel de l'utilisatrice (valeur de `CreePar`).
+
 | ID | Résultat | Statut | Conséquence |
 |---|---|---|---|
-| VAL-01 | — | Non testé | — |
-| VAL-02 | — | Non testé | — |
-| VAL-03 | — | Non testé | — |
-| VAL-04 | — | Non testé | — |
-| VAL-05 | — | Non testé | — |
-| VAL-06 | — | Non testé | — |
-| VAL-07 | — | Non testé | — |
-| VAL-08 | — | Non testé | — |
-| VAL-09 | — | Non testé | — |
-| VAL-10 | — | Non testé | — |
-| VAL-11 | — | Non testé | — |
+| VAL-01 | `onRecords` reçu après chaque écriture réussie du widget (création de tables, ajouts, suppressions), mais pas après un lot refusé. **Point non établi** : quelle table était liée à la section pendant l'essai. L'essai manuel décisif reste à faire : section liée à `SondeSynchro`, modification d'une cellule de `SondeTest` dans une vue Grist | Partiel | DEC-006 maintenue en attendant l'essai manuel |
+| VAL-02 | Un événement par lot d'écriture observé ; essai de rafale (20 lignes collées) non fait | Partiel | Anti-rebond de 300 ms maintenu (TECH-080) |
+| VAL-03 | `fetchTable` renvoie le **format colonnes** `{ id: [...], Col: [...] }`, colonne `id` incluse | Confirmé | `02` §5.2 et §5.5 confirmés |
+| VAL-04 | Date → **secondes à minuit UTC** (2027-03-20 → 1805500800) ; DateTime → secondes décimales ; Bool → `true` ; Numeric → nombre ; Choice → texte ; ChoiceList → `["L", "A", "B"]` ; Ref → identifiant (nombre) ; RefList → `["L", 7, 8]`. Écriture dans les mêmes formats acceptée | Confirmé | Tableau `02` §5.5 confirmé |
+| VAL-05 | Lot `[AddRecord, UpdateRecord sur colonne inexistante]` refusé (`KeyError`) ; nombre de lignes inchangé (25 → 25) | Confirmé | Atomicité des lots confirmée (RG-050, TECH-064) |
+| VAL-06 | Essai manuel (Ctrl+Z) non fait | Non testé | — |
+| VAL-07 | Écriture acceptée avec le compte propriétaire ; essai avec un compte Lecteur non fait | Partiel | À compléter en T1.21 |
+| VAL-08 | `settings.accessLevel = "full"` ; clés reçues : `accessLevel`, `linking` (et non `access_level`) | Confirmé | Utiliser `accessLevel` (TECH-060, FONC-083) |
+| VAL-09 | Lecture de `_grist_Tables` (colonnes `id`, `tableId`, `primaryViewId`, `summarySourceTable`, `onDemand`, `locked`, `rawViewSectionRef`, `recordCardViewSectionRef`) et de `_grist_Tables_column` autorisée | Confirmé | Vérification de schéma faisable (T1.06) |
+| VAL-10 | Après suppression de la ligne référencée, la référence vaut **0** (vidée par Grist) | Confirmé | Pas de référence orpheline pour `Ref` : ERR-07 se réduit à « valeur vide » ; le widget doit empêcher la suppression d'éléments référencés (TECH-045) pour ne pas perdre de liens silencieusement |
+| VAL-11 | `AddTable` avec colonnes de déclenchement (`isFormula: false`, `formula`, `recalcWhen: 0`) accepté ; `CreeLe` et `CreePar` remplis à la création (`CreePar` = nom de l'utilisateur Grist). `MajLe` (`recalcWhen: 2`) non relu après modification. `applyUserActions` renvoie `{ actionNum, actionHash, retValues, isModification }` ; `retValues` de `BulkAddRecord` = liste des identifiants créés | Partiel | TECH-043 et TECH-065 confirmés pour la création ; vérifier `MajLe` après une modification |
 | VAL-12 | Reporté à T1.03 (intégration des couleurs et polices DSFR) | Non testé | — |
-| VAL-13 | — | Non testé | — |
-| VAL-14 | — | Non testé | — |
-| VAL-15 | — | Non testé | — |
-| VAL-16 | — | Non testé | — |
-| VAL-17 | — | Non testé | — |
-| VAL-18 | — | Non testé | — |
-| VAL-19 | — | Non testé | — |
+| VAL-13 | La sonde publiée sur `github.io` se charge depuis le poste de travail | Confirmé | Hébergement GitHub Pages utilisable (DEC-007) |
+| VAL-14 | Grist envoie un thème au widget : objet avec `appearance`, `colors`, `name` | Confirmé | Option : suivre le thème clair/sombre de Grist plutôt que celui du système (`07` §4) — à décider en T1.03 |
+| VAL-15 | Widget par **URL personnalisée** accepté sur `grist.numerique.gouv.fr`, avec accès complet. **La pile TypeScript + Vite fonctionne dans Grist** (condition de DEC-003, première étape) | Confirmé | DEC-007 sans réserve ; « chemin B » non nécessaire |
+| VAL-16 | Contrôle du lendemain à faire. `TODAY()` renvoie bien la date du jour (secondes à minuit UTC) | Partiel | — |
+| VAL-17 | 20 lignes visibles dans `SondeProfils` : aucune règle d'accès n'avait été posée | Non testé | À faire en T1.21 (second compte nécessaire) |
+| VAL-18 | `CreateViewSection` accepté par Grist ; apparition de la page à confirmer visuellement | Partiel | Création de la page « Synthèse SIGNAL » par l'assistant probablement possible (FONC-086) |
+| VAL-19 | Non testé | Non testé | À faire en T1.21 |
+
+**Remarque** : les tables de test ont été créées deux fois (suffixe `2` ajouté par Grist au second passage). Le bouton de nettoyage supprime désormais toutes les tables commençant par « Sonde ».

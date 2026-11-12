@@ -5,6 +5,7 @@ import { version } from '../../package.json';
 import {
   actionsCreationTables,
   actionsSuppressionTables,
+  afficherValeurRelue,
   colonne,
   compterLignes,
   dateEnSecondesUTC,
@@ -63,6 +64,7 @@ function texteErreur(erreur: unknown): string {
 const grist = window.grist;
 let nbEvenementsOnRecords = 0;
 let themeSignale = false;
+let tableLiee: unknown;
 
 if (!grist) {
   if (elementEtat) {
@@ -96,6 +98,11 @@ if (!grist) {
     if (message.theme !== undefined && !themeSignale) {
       themeSignale = true;
       noter('VAL-14', 'INFO', `Grist envoie un thème au widget (${decrireValeur(message.theme)}).`);
+    }
+    // Indique la table liée à la section, indispensable pour interpréter VAL-01.
+    if (typeof message.tableId === 'string' && message.tableId !== tableLiee) {
+      tableLiee = message.tableId;
+      noter('VAL-01/02', 'INFO', `Table liée à la section du widget : ${message.tableId}.`);
     }
   });
 }
@@ -211,7 +218,7 @@ const essais: Essai[] = [
           'Aujourdhui',
         ]) {
           const valeur = colonne(table, nom).at(-1);
-          noter('VAL-04', 'INFO', `${nom} relu : ${decrireValeur(valeur)} = ${JSON.stringify(valeur)}`);
+          noter('VAL-04', 'INFO', `${nom} relu : ${afficherValeurRelue(valeur)}`);
         }
       }),
   },
@@ -320,8 +327,9 @@ const essais: Essai[] = [
     bouton: 'Supprimer',
     executer: () =>
       avecGrist('Nettoyage', async (api) => {
-        await api.docApi.applyUserActions(actionsSuppressionTables());
-        noter('Nettoyage', 'OK', 'Tables de test supprimées.');
+        const actions = actionsSuppressionTables(await api.docApi.listTables());
+        if (actions.length > 0) await api.docApi.applyUserActions(actions);
+        noter('Nettoyage', 'OK', `${actions.length} table(s) de test supprimée(s).`);
       }),
   },
   {
