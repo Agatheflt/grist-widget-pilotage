@@ -29,6 +29,14 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
   - acceptation des modalités DSFR enregistrée (`.dsfr.yml`, DEC-030) et déclarée dans la CI ;
   - tests : préférences, thème, interrupteur, CSP, test de bout en bout du mode sombre.
 
+- **T1.22 — Composants de base et vitrine** (`src/ui/composants/base/`) :
+  - composants : Bouton, Alerte, Bandeau, Badge, Etiquette, ChampTexte (texte, date, nombre, courriel), ZoneTexte, ListeDeroulante, CaseACocher, GroupeRadio, ControleSegmente, Interrupteur, Onglets, Modale et ModaleConfirmation, Infobulle, Accordeon, IndicateurEtapes, Tuile, Tableau triable, Pagination ;
+  - icônes dessinées pour le projet (`src/ui/icones.tsx`) ;
+  - styles dans `src/styles/composants.css`, uniquement à partir des variables DSFR ;
+  - page vitrine publiée (`outils/vitrine/`) ;
+  - 27 tests de composants (clavier, ARIA, focus) et tests d'accessibilité axe-core de la vitrine en clair et en sombre (CI).
+- VAL-12 confirmé (affichage DSFR dans Grist) et consigné dans `docs/00` §8.
+
 ### Modifié
 
 - Sonde : textes relus masqués (seule la longueur est affichée), nettoyage de toutes les tables « Sonde… » (doublons compris), affichage de la table liée à la section (VAL-01).

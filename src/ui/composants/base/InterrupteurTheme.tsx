@@ -1,22 +1,15 @@
-// Interrupteur « Mode sombre » (DEC-029).
-// Bouton natif avec le rôle ARIA « switch » : utilisable au clavier (Entrée, Espace)
-// et annoncé « activé / désactivé » par les lecteurs d'écran.
+// Interrupteur « Mode sombre » (DEC-029) : applique et mémorise le thème choisi.
 import { useState } from 'preact/hooks';
 import { choisirTheme, themeEnregistre } from '../../theme';
+import { Interrupteur } from './Choix';
 
 export function InterrupteurTheme() {
   const [sombre, setSombre] = useState(themeEnregistre() === 'sombre');
 
-  const basculer = () => {
-    const nouveau = !sombre;
-    setSombre(nouveau);
-    choisirTheme(nouveau ? 'sombre' : 'clair');
+  const basculer = (active: boolean) => {
+    setSombre(active);
+    choisirTheme(active ? 'sombre' : 'clair');
   };
 
-  return (
-    <button type="button" role="switch" aria-checked={sombre} class="sg-interrupteur" onClick={basculer}>
-      <span class="sg-interrupteur__piste" aria-hidden="true"></span>
-      Mode sombre
-    </button>
-  );
+  return <Interrupteur libelle="Mode sombre" active={sombre} onChange={basculer} />;
 }

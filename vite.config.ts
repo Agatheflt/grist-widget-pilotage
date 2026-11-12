@@ -16,6 +16,7 @@ export default defineConfig({
       input: {
         widget: 'index.html',
         sonde: 'outils/sonde-grist/index.html',
+        vitrine: 'outils/vitrine/index.html',
       },
     },
   },
