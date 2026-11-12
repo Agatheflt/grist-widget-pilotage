@@ -18,6 +18,7 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
 - Section « Résultats de validation » dans `docs/00` (§8), à remplir avec le rapport de la sonde.
 
 - Résultats de la première série d'essais de la sonde consignés dans `docs/00` §8 (VAL-03, 04, 05, 08, 09, 10, 13, 14, 15 confirmés).
+- **Clôture de T1.02** : VAL-01 (synchronisation par la table `Synchro`), VAL-02 (un événement par écriture), VAL-06, VAL-11 (colonnes `MajLe` créées en deux temps) et VAL-18 (création de page par l'API) confirmés ; VAL-16 non vérifié, sans impact bloquant. Règle de création des colonnes de déclenchement reportée dans `docs/02` §4.1 et T1.06.
 
 ### Modifié
 

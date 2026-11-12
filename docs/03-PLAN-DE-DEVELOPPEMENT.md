@@ -30,7 +30,7 @@ Décisions obtenues le 12/11/2026 : Q-002 (dépôt public), DEC-008 (couleurs et
 | ID | Tâche | Prérequis | Exigences | Statut |
 |---|---|---|---|---|
 | T1.01 | Initialiser le projet | Décisions de démarrage | TECH-001, 010–013, 020–022, 030 | Terminée (12/11/2026, PR #1) |
-| T1.02 | Valider l'API Grist (sonde) | T1.01 | VAL-01…19, TECH-060, 064, 065, 080 | En cours |
+| T1.02 | Valider l'API Grist (sonde) | T1.01 | VAL-01…19, TECH-060, 064, 065, 080 | Terminée (12/11/2026, PR #2, #3 et clôture) — 15 points confirmés, voir `00` §8 |
 | T1.03 | Intégrer couleurs et polices DSFR, thème, CSP | T1.01 | UX-020, 023, TECH-113, 120 | À faire |
 | T1.22 | Composants de base et vitrine | T1.03 | UX-004–009, 020–022 | À faire |
 | T1.04 | Modèles du domaine | T1.01 | TECH-031, 071 | À faire |
@@ -94,7 +94,7 @@ Ordre d'exécution conseillé : T1.01, T1.02, T1.03, T1.22, T1.04 à T1.13, T1.2
 
 **T1.06 — Schéma, vérification, initialisation, migrations**
 - Fichiers : `src/grist/schema.ts`, `verification-schema.ts`, `initialisation.ts`, `actions-utilisateur.ts`.
-- Instructions : décrire les 16 tables de `02` §4.3 (dont `Profils`, `ReleveMensuel`) (types, choix, formules, formules de déclenchement selon VAL-11) ; comparer avec le schéma réel ; générer les actions d'initialisation ; mécanisme `migrations[N]`.
+- Instructions : décrire les 16 tables de `02` §4.3 (dont `Profils`, `ReleveMensuel`) (types, choix, formules, formules de déclenchement en deux temps : création puis `ModifyColumn` avec `recalcWhen: 2` pour `MajLe`/`MajPar`, validé par VAL-11) ; comparer avec le schéma réel ; générer les actions d'initialisation ; mécanisme `migrations[N]`.
 - Tests : `TEST-U-SCH-01` à `03`, `TEST-U-ACG-01`.
 - DoD : l'initialisation appliquée au `FauxGrist` produit un schéma que la vérification déclare complet.
 
