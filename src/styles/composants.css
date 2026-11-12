@@ -500,7 +500,10 @@
   border: 0;
 }
 
+/* Ouvert : couleur des titres plutôt que le bleu d'action, trop juste en contraste
+   sur ce fond en mode sombre (≈ 4,5:1, relevé par axe-core en CI). */
 .sg-accordeon__bouton[aria-expanded='true'] {
+  color: var(--sg-texte-titre);
   background-color: var(--background-action-low-blue-france);
 }
 
