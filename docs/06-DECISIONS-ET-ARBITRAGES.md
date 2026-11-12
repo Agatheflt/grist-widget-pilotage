@@ -213,3 +213,20 @@ Statuts de `01` §7.2 acceptés. Les transitions `Soumis → Validé`, `→ À r
   - toute autre installation demande un accord préalable (CLAUDE.md §6 bis).
 - **Conséquence** : pour les tâches d'interface, le résultat des tests navigateur n'arrive qu'après envoi sur GitHub (quelques minutes).
 - **Statut** : Validée (12/11/2026).
+
+### DEC-029 — Thème : clair par défaut, interrupteur « Mode sombre » (12/11/2026, avant T1.03)
+
+- **Contexte** : Grist transmet un thème au widget (VAL-14). Mais `grist.numerique.gouv.fr` ne propose pas de choix clair/sombre à ses utilisateurs : Grist y est toujours affiché en clair (constat de la responsable).
+- **Décision de la responsable** :
+  - le widget s'affiche **en clair par défaut**, comme Grist ;
+  - un **interrupteur « Mode sombre »** permet de passer en sombre ; le choix est mémorisé sur le poste (`localStorage`, protégé par `try/catch`) ;
+  - le thème du système d'exploitation et celui envoyé par Grist ne sont **pas** suivis.
+- **Mise en œuvre** : attributs `data-fr-theme` et `color-scheme` posés sur `<html>` par le widget, en s'appuyant sur les variables du thème sombre du DSFR (`scheme`). Aucun JavaScript DSFR n'est utilisé (DEC-008).
+- **Réversibilité** : forte. Suivre le thème de Grist reste possible si l'instance propose un jour un mode sombre.
+- **Statut** : Validée (12/11/2026).
+
+### DEC-030 — Acceptation des modalités d'utilisation du DSFR (12/11/2026)
+
+- La responsable a lu et accepté les modalités d'utilisation du DSFR (https://www.systeme-de-design.gouv.fr/version-courante/fr/a-propos/modalites-d-utilisation) le 12/11/2026, avant l'installation du paquet `@gouvfr/dsfr` 1.15.4.
+- Cette acceptation est reportée dans la CI (`DSFR_ACCEPT_LICENSE=1`) et pour les installations locales du projet.
+- **Statut** : Validée (12/11/2026).

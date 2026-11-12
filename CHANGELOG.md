@@ -20,6 +20,15 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
 - Résultats de la première série d'essais de la sonde consignés dans `docs/00` §8 (VAL-03, 04, 05, 08, 09, 10, 13, 14, 15 confirmés).
 - **Clôture de T1.02** : VAL-01 (synchronisation par la table `Synchro`), VAL-02 (un événement par écriture), VAL-06, VAL-11 (colonnes `MajLe` créées en deux temps) et VAL-18 (création de page par l'API) confirmés ; VAL-16 non vérifié, sans impact bloquant. Règle de création des colonnes de déclenchement reportée dans `docs/02` §4.1 et T1.06.
 
+- **T1.03 — Couleurs et police DSFR, thème, CSP** :
+  - `@gouvfr/dsfr` 1.15.4 (version exacte), seuls les fichiers « cœur » et « thème » sont importés (DEC-008) ;
+  - variables du projet `--sg-*` adossées aux couleurs DSFR, styles de base ;
+  - thème clair par défaut et interrupteur « Mode sombre » mémorisé (DEC-029) ;
+  - politique de sécurité du contenu (CSP) dans la page du widget ;
+  - règles stylelint : pas de couleur en dur, pas de `!important`, classes `sg-*` uniquement ;
+  - acceptation des modalités DSFR enregistrée (`.dsfr.yml`, DEC-030) et déclarée dans la CI ;
+  - tests : préférences, thème, interrupteur, CSP, test de bout en bout du mode sombre.
+
 ### Modifié
 
 - Sonde : textes relus masqués (seule la longueur est affichée), nettoyage de toutes les tables « Sonde… » (doublons compris), affichage de la table liée à la section (VAL-01).

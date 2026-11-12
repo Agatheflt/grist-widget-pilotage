@@ -66,7 +66,7 @@ Tous dans `src/ui/composants/base/`, chacun avec son test de composant et une pa
 | Étapes | `IndicateurEtapes` | Texte « Étape 2 sur 3 : … » |
 | Tuiles du cockpit | `Tuile` | Lien ou bouton unique couvrant la tuile, titre explicite |
 | Pagination | `Pagination` | `nav aria-label`, page courante `aria-current` |
-| Thème | `ChoixTheme` (Système / Clair / Sombre) | Groupe de radios ; mémorisé en `localStorage` |
+| Thème | `InterrupteurTheme` (« Mode sombre », DEC-029) | Bouton natif avec `role="switch"` et `aria-checked` ; mémorisé en `localStorage` |
 | Barre de progression | `BarreProgression` (§5.1) | `role="progressbar"` |
 
 **Principe** : préférer les éléments HTML natifs (`<button>`, `<select>`, `<dialog>`, `<details>` si pertinent), qui sont accessibles par défaut, à des reconstructions en `<div>`.
@@ -119,7 +119,7 @@ Tous dans `src/ui/composants/base/`, chacun avec son test de composant et une pa
 | Hauteur | `html, body { height: 100% }` ; barre et onglets fixes ; zone de contenu défilante |
 | Largeur | Media queries sur la largeur de l'iframe, qui est celle de la section |
 | Modales | Hauteur maximale = hauteur de section ; contenu défilant ; plein écran sous 576 px |
-| Thème | Préférence « Système » par défaut (`prefers-color-scheme`) ; choix manuel mémorisé ; notre script pose `data-fr-theme` et `color-scheme` sur `<html>` avant l'affichage (fichier séparé, conforme à la CSP) |
+| Thème | **Clair par défaut**, comme Grist sur `grist.numerique.gouv.fr` ; interrupteur « Mode sombre » mémorisé sur le poste (DEC-029). Ni le thème du système ni celui envoyé par Grist ne sont suivis. `src/ui/theme.ts` pose `data-fr-theme` et `color-scheme` sur `<html>` avant le premier affichage (code chargé depuis un fichier, conforme à la CSP) |
 | Impression | `@media print` : barre et onglets masqués, fond blanc, A4 paysage |
 | Widget Creator (repli I2) | `localStorage` indisponible : thème « Système » forcé |
 

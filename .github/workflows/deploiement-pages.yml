@@ -19,6 +19,10 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Acceptation des modalités d'utilisation du DSFR par la responsable (DEC-030, fichier .dsfr.yml).
+env:
+  DSFR_ACCEPT_LICENSE: '1'
+
 jobs:
   construire:
     runs-on: ubuntu-latest

@@ -1,8 +1,16 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-fr-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Politique de sécurité du contenu (TECH-113) : le widget ne charge que ses propres fichiers,
+      plus l'API Grist ; aucune requête vers un autre service, aucun script en ligne.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://docs.getgrist.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
     <title>Pilotage de la stratégie SIGNAL</title>
   </head>
   <body>

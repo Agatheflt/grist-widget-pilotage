@@ -22,6 +22,7 @@
     "verifier": "npm run lint && npm run types && npm run test && npm run verifier:secrets && npm run build"
   },
   "dependencies": {
+    "@gouvfr/dsfr": "1.15.4",
     "@preact/signals": "^2.11.4",
     "preact": "^11.2.0"
   },

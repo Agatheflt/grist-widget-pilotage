@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+# Acceptation des modalités d'utilisation du DSFR par la responsable (DEC-030, fichier .dsfr.yml).
+env:
+  DSFR_ACCEPT_LICENSE: '1'
+
 jobs:
   verifier:
     runs-on: ubuntu-latest
