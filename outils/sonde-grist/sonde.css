@@ -1,0 +1,50 @@
+/* Mise en forme minimale de la sonde (outil de test, hors interface du widget). */
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  line-height: 1.5;
+  color: #1e1e1e;
+  background: #fff;
+}
+
+main {
+  max-width: 60rem;
+}
+
+.essai {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.essai h3 {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
+button {
+  font: inherit;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid #000091;
+  outline-offset: 2px;
+}
+
+#journal li {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+}
+
+.ok {
+  color: #18753c;
+}
+
+.echec {
+  color: #ce0500;
+}

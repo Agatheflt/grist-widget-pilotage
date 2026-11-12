@@ -13,6 +13,10 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
 - Licence MIT, politique de sécurité (`SECURITY.md`), `.gitignore` excluant `donnees-privees/` et les fichiers de données.
 - Page minimale du widget et premiers tests (unitaire, composant, bout en bout).
 
+- **T1.02 — Sonde de validation de l'API Grist** (`outils/sonde-grist/`) : page de test publiée avec le widget, essais VAL-01 à VAL-19, rapport copiable sans données du document, mode d'emploi pas à pas ; fonctions utilitaires testées.
+- Workflow de déploiement GitHub Pages **manuel** (`.github/workflows/deploiement-pages.yml`), avancé depuis T1.18 pour publier la sonde.
+- Section « Résultats de validation » dans `docs/00` (§8), à remplir avec le rapport de la sonde.
+
 ### Modifié
 
 - Tests dans un navigateur et dans un Grist local exécutés uniquement par la CI GitHub (DEC-028) ; aucun navigateur de test installé sur le poste.

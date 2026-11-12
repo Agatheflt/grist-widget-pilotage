@@ -20,3 +20,6 @@ donnees-privees/
 Thumbs.db
 .vscode/
 .idea/
+
+# Cache d'un module complémentaire de l'environnement Claude (hors projet)
+.impeccable/
