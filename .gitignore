@@ -1,0 +1,22 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Variables d'environnement et secrets (ne jamais versionner)
+.env*
+
+# Données réelles de travail : jamais publiées (DEC-026)
+donnees-privees/
+*.xlsx
+*.xls
+*.grist
+
+# Fichiers système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
