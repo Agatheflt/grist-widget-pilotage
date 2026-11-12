@@ -39,6 +39,15 @@ Format : une section par version (SemVer). Les modifications en cours sont list�
 
 ### Modifié
 
+- **Apparence des composants façon shadcn/ui, couleurs DSFR (DEC-031)** :
+  - angles arrondis, bordures fines, ombres légères, anneau de focus ;
+  - champs encadrés ; boutons plein, contour et fantôme ; badges en pastille ;
+  - onglets et contrôle segmenté en pastilles ; modale sur fond flouté ;
+  - cartes ombrées ; tableau aéré avec survol des lignes ;
+  - interrupteur redessiné ;
+  - survol corrigé des boutons principal et danger (assombrissement léger) ;
+  - bordure des champs à un contraste d'environ 3,1:1.
+
 - Sonde : textes relus masqués (seule la longueur est affichée), nettoyage de toutes les tables « Sonde… » (doublons compris), affichage de la table liée à la section (VAL-01).
 
 - Tests dans un navigateur et dans un Grist local exécutés uniquement par la CI GitHub (DEC-028) ; aucun navigateur de test installé sur le poste.

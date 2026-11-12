@@ -230,3 +230,15 @@ Statuts de `01` §7.2 acceptés. Les transitions `Soumis → Validé`, `→ À r
 - La responsable a lu et accepté les modalités d'utilisation du DSFR (https://www.systeme-de-design.gouv.fr/version-courante/fr/a-propos/modalites-d-utilisation) le 12/11/2026, avant l'installation du paquet `@gouvfr/dsfr` 1.15.4.
 - Cette acceptation est reportée dans la CI (`DSFR_ACCEPT_LICENSE=1`) et pour les installations locales du projet.
 - **Statut** : Validée (12/11/2026).
+
+### DEC-031 — Apparence des composants inspirée de shadcn/ui, couleurs DSFR (12/11/2026, revue de la vitrine T1.22)
+
+- **Contexte** : à la revue de la vitrine, la responsable a constaté que les composants imitaient l'apparence des composants DSFR (champs soulignés, angles droits, badges en majuscules). Ce n'était pas l'intention de DEC-008. Elle préfère l'apparence des composants **shadcn/ui**, avec la palette de couleurs du DSFR. Elle a aussi relevé un survol mal accordé sur les boutons « Créer un objectif » (principal) et « Archiver » (danger).
+- **Options** : A. reproduire le style shadcn/ui sur nos composants Preact existants ; B. adopter shadcn/ui (React + Tailwind CSS + Radix UI).
+- **Décision de la responsable : option A.**
+  - Les 20 composants de `src/ui/composants/base/` gardent leur structure, leur accessibilité et leurs tests.
+  - Seule leur **apparence** change, à la manière de shadcn/ui : angles arrondis, bordures fines, ombres légères, anneau de focus, champs encadrés, badges en pastille, onglets en pastilles sur fond gris, modale arrondie sur fond flouté, cartes, tableau aéré avec survol des lignes.
+  - Toutes les couleurs restent celles du DSFR (variables `--sg-*` adossées aux variables DSFR).
+  - Survols : le bouton principal et le bouton danger s'assombrissent légèrement, comme dans shadcn/ui, au lieu d'utiliser la couleur de survol DSFR.
+- **Conséquences** : aucune dépendance ajoutée ; DEC-003 (Preact) et DEC-008 (couleurs et police DSFR) inchangées ; `docs/07` est mis à jour.
+- **Statut** : Validée (12/11/2026).

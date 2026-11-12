@@ -11,7 +11,18 @@
 - L'usage du DSFR est **autorisé** pour ce widget interne (réponse Q-003 du 12/11/2026).
 - **Périmètre** : on reprend **uniquement les couleurs** (palette, tokens, thèmes clair et sombre) et **la police Marianne**.
 - **On n'utilise pas les composants DSFR** : ni leur CSS, ni leur JavaScript, ni leurs classes `fr-*` de composants (`fr-btn`, `fr-modal`, `fr-tabs`…).
-- Les composants de l'interface (boutons, onglets, modales, formulaires, tableaux, badges…) sont **écrits pour le projet**, dans `src/ui/composants/base/`. Ils reprennent l'esprit visuel du DSFR et appliquent les règles d'accessibilité RGAA.
+- Les composants de l'interface (boutons, onglets, modales, formulaires, tableaux, badges…) sont **écrits pour le projet**, dans `src/ui/composants/base/`, et appliquent les règles d'accessibilité RGAA.
+- **Leur apparence s'inspire de shadcn/ui** (DEC-031, 12/11/2026). La bibliothèque elle-même n'est pas utilisée : elle demande React, Tailwind CSS et Radix UI. Les marqueurs de ce style :
+  - angles arrondis (`--sg-rayon-*`), bordures fines, ombres légères (`--sg-ombre-*`) ;
+  - anneau de focus coloré (`--sg-anneau`) ;
+  - champs encadrés sur tout le pourtour ;
+  - boutons « plein », « contour » et « fantôme » ;
+  - badges et étiquettes en pastille, sans majuscules ;
+  - onglets et contrôle segmenté en pastilles sur fond gris ;
+  - modale arrondie sur fond assombri et flouté ;
+  - cartes (tuiles) ombrées ;
+  - tableau aéré dans un cadre arrondi, avec survol des lignes.
+- **Les couleurs restent exclusivement celles du DSFR** : formes et proportions viennent de shadcn/ui, couleurs du DSFR.
 - **Interdits** : bloc marque « République française », Marianne institutionnelle (logo), devise, tout élément pouvant faire croire à un site officiel `.gouv.fr`.
 
 ## 1. Version et fichiers retenus
@@ -38,9 +49,13 @@
 - le thème sombre fonctionne en posant nous-mêmes l'attribut `data-fr-theme="dark"` sur `<html>`, sans le JavaScript DSFR ;
 - `core` ne stylise pas les éléments HTML d'une façon qui gêne nos composants.
 
-**Repli** : si `core` est trop intrusif, extraire dans `src/styles/tokens-dsfr.css` les seules variables de couleur et les `@font-face` Marianne. Le script `scripts/extraire-tokens-dsfr.mjs` les génère depuis le paquet installé, pour qu'on ne recopie jamais les valeurs à la main.
+**Résultat de T1.03 (VAL-12 confirmé)** : `core` convient tel quel. Le repli par extraction des variables n'a pas été nécessaire.
 
-**Icônes** : celles du DSFR ne sont pas importées. On utilise un petit jeu d'**icônes SVG intégrées au code** (`src/ui/icones.tsx`), d'environ 15 icônes : flèches, alerte, info, succès, erreur, fermer, menu, filtre, calendrier, rafraîchir. Leur licence doit être compatible : soit dessinées pour le projet, soit Remix Icon (Apache-2.0), dont le DSFR s'inspire. Le choix est consigné dans `06`.
+**Icônes** : celles du DSFR ne sont pas importées. On utilise **11 icônes SVG dessinées pour le projet** (`src/ui/icones.tsx`) : chevrons, fermer, info, succès, erreur, avertissement, plus, flèches de tri. Comme elles ont été dessinées pour le projet, aucune licence tierce ne s'applique.
+
+**Survols (DEC-031)** : bouton principal et bouton danger légèrement assombris (`color-mix`, 88 % de la couleur + noir) ; boutons « contour » et « fantôme » sur fond gris (`--sg-fond-survol`).
+
+**Bordure des champs** : `--sg-bordure-champ` (gris DSFR `grey-625-425`), contraste d'environ 3,1:1 en clair comme en sombre (minimum RGAA pour les composants d'interface).
 
 ## 2. Composants du projet
 
@@ -103,6 +118,8 @@ Tous dans `src/ui/composants/base/`, chacun avec son test de composant et une pa
 | Priorité | Haute / Moyenne / Basse | Texte + icône flèche, sans couleur système |
 | Avancement | Calculé / Déclaré / Non mesurable | Texte sous la barre ; « Déclaré » mis en évidence par une icône et une infobulle |
 | Gouvernance | Criticité Haute / Moyenne / Basse | Erreur / Avertissement / Neutre |
+
+Tous les badges ont la forme d'une pastille, sans majuscules (DEC-031).
 
 ### 3.4 Espacements et grille
 
