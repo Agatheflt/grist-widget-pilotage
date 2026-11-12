@@ -186,7 +186,10 @@ Colonnes d'audit communes (non répétées dans les fiches) :
 | `MajLe` | DateTime | `NOW()`, « appliquer à toute modification » |
 | `MajPar` | Text | `user.Name`, « appliquer à toute modification » |
 
-Le paramétrage exact des formules de déclenchement via `applyUserActions` (`recalcWhen`, `recalcDeps`) est à valider (VAL-11). À défaut, l'assistant d'initialisation crée les colonnes et la procédure manuelle de `05` indique comment activer le déclenchement.
+Paramétrage **validé** (VAL-11, `00` §8) :
+- `CreeLe` et `CreePar` : colonne créée avec `isFormula: false`, `formula` (`NOW()` ou `user.Name`) et `recalcWhen: 0`. La valeur est calculée à la création de la ligne.
+- `MajLe` et `MajPar` : la colonne est créée, **puis** réglée par `["ModifyColumn", table, colonne, { "recalcWhen": 2, "recalcDeps": null }]`. Le réglage `recalcWhen: 2` passé directement dans `AddTable` n'est pas pris en compte.
+- Après l'initialisation, l'assistant relit `_grist_Tables_column` pour vérifier les réglages. Un écart est signalé comme « structure incomplète » (ERR-02).
 
 ### 4.2 Diagramme des relations
 
