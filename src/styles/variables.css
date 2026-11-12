@@ -21,6 +21,29 @@
   --sg-bordure-forte: var(--border-plain-grey);
   --sg-bordure-action: var(--border-action-high-blue-france);
 
+  /* Bordure des champs : gris DSFR à ≈ 3,1:1 en clair et en sombre (contraste minimal RGAA des champs) */
+  --sg-bordure-champ: var(--grey-625-425);
+
+  /* Survols (DEC-031) : la couleur d'origine légèrement assombrie, comme dans shadcn/ui */
+  --sg-fond-action-survol: color-mix(in srgb, var(--sg-fond-action) 88%, rgb(0 0 0));
+  --sg-fond-danger: var(--background-flat-error);
+  --sg-fond-danger-survol: color-mix(in srgb, var(--sg-fond-danger) 88%, rgb(0 0 0));
+  --sg-texte-sur-danger: var(--text-inverted-error);
+  --sg-fond-survol: var(--sg-fond-contraste);
+
+  /* Formes (DEC-031) : angles arrondis et ombres légères à la manière de shadcn/ui */
+  --sg-rayon-petit: 0.375rem;
+  --sg-rayon: 0.5rem;
+  --sg-rayon-grand: 0.75rem;
+  --sg-rayon-pastille: 999px;
+  --sg-ombre-petite: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --sg-ombre: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --sg-ombre-grande: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+
+  /* Anneau de focus clavier : contour transparent (visible en contraste élevé) + halo coloré */
+  --sg-anneau: 0 0 0 2px var(--sg-fond), 0 0 0 4px var(--sg-bordure-action);
+  --sg-anneau-erreur: 0 0 0 2px var(--sg-fond), 0 0 0 4px var(--border-plain-error);
+
   /* Espacements : échelle du DSFR (multiples de 4 px) */
   --sg-espace-1: 0.25rem;
   --sg-espace-2: 0.5rem;

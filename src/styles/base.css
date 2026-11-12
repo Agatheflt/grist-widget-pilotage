@@ -1,6 +1,6 @@
 /*
  * Mise en page de base du widget dans la section Grist (docs/07 §4).
- * La police Marianne et la typographie de base viennent du « cœur » du DSFR.
+ * Police Marianne et typographie de base : « cœur » du DSFR. Apparence : à la manière de shadcn/ui (DEC-031).
  */
 html,
 body {
@@ -25,79 +25,93 @@ body {
   gap: var(--sg-espace-2) var(--sg-espace-4);
   align-items: center;
   justify-content: space-between;
+  min-height: 3.5rem;
   padding: var(--sg-espace-2) var(--sg-espace-4);
-  background-color: var(--sg-fond-alterne);
+  background-color: var(--sg-fond);
   border-bottom: 1px solid var(--sg-bordure);
 }
 
 .sg-barre__titre {
   margin: 0;
   font-size: 1.25rem;
+  font-weight: 700;
   line-height: 1.75rem;
   color: var(--sg-texte-titre);
 }
 
 .sg-contenu {
   flex: 1;
-  padding: var(--sg-espace-4);
+  padding: var(--sg-espace-5) var(--sg-espace-4);
 }
 
 .sg-version {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: var(--sg-texte-secondaire);
 }
 
-/* Interrupteur « Mode sombre » (DEC-029) */
+/* Interrupteur (switch) à la manière de shadcn/ui */
 .sg-interrupteur {
   display: inline-flex;
   gap: var(--sg-espace-2);
   align-items: center;
   min-height: 2.75rem;
-  padding: 0 var(--sg-espace-2);
+  padding: 0 var(--sg-espace-1);
   font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--sg-texte);
   cursor: pointer;
   background: none;
   border: 0;
+  border-radius: var(--sg-rayon);
 }
 
 .sg-interrupteur__piste {
   position: relative;
-  width: 2.5rem;
+  flex-shrink: 0;
+  width: 2.75rem;
   height: 1.5rem;
-  background-color: var(--sg-fond);
-  border: 1px solid var(--sg-bordure-action);
-  border-radius: 0.75rem;
+  background-color: var(--sg-fond-contraste);
+  border: 2px solid transparent;
+  border-radius: var(--sg-rayon-pastille);
+  box-shadow: inset 0 0 0 1px var(--sg-bordure);
+  transition: background-color 0.15s ease;
 }
 
 .sg-interrupteur__piste::after {
   position: absolute;
-  top: 0.1875rem;
-  left: 0.1875rem;
-  width: 1rem;
-  height: 1rem;
+  top: 0;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
   content: '';
-  background-color: var(--sg-bordure-action);
+  background-color: var(--background-raised-grey);
   border-radius: 50%;
+  box-shadow: var(--sg-ombre);
   transition: transform 0.15s ease;
 }
 
 .sg-interrupteur[aria-checked='true'] .sg-interrupteur__piste {
   background-color: var(--sg-fond-action);
+  box-shadow: none;
 }
 
 .sg-interrupteur[aria-checked='true'] .sg-interrupteur__piste::after {
-  background-color: var(--sg-texte-sur-action);
-  transform: translateX(1rem);
+  transform: translateX(1.25rem);
 }
 
 .sg-interrupteur:focus-visible {
-  outline: 2px solid var(--sg-bordure-action);
+  outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
+.sg-interrupteur:focus-visible .sg-interrupteur__piste {
+  box-shadow: var(--sg-anneau);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .sg-interrupteur__piste,
   .sg-interrupteur__piste::after {
     transition: none;
   }
