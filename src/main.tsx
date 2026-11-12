@@ -6,6 +6,7 @@ import '@gouvfr/dsfr/dist/scheme/scheme.min.css';
 // Styles du projet, adossés aux variables du DSFR.
 import './styles/variables.css';
 import './styles/base.css';
+import './styles/composants.css';
 
 import { render } from 'preact';
 import { App } from './ui/App';

@@ -50,7 +50,7 @@ Tous dans `src/ui/composants/base/`, chacun avec son test de composant et une pa
 |---|---|---|
 | Navigation entre vues | `Onglets` | `role="tablist"`/`tab`/`tabpanel`, flèches gauche/droite, `aria-selected` ; < 576 px : liste déroulante native |
 | Actions | `Bouton` (primaire, secondaire, tertiaire, icône seule, danger) | `<button>`, libellé accessible, état désactivé `aria-disabled` + explication |
-| Formulaires | `ChampTexte`, `ZoneTexte`, `ChampDate`, `ChampNombre` | `<label>` lié, message d'aide et d'erreur via `aria-describedby`, `aria-invalid` |
+| Formulaires | `ChampTexte` (types texte, date, nombre, courriel), `ZoneTexte` — fichier `Champ.tsx` | `<label>` lié, message d'aide et d'erreur via `aria-describedby`, `aria-invalid` |
 | Listes | `ListeDeroulante` (`<select>` natif) | Natif, donc accessible |
 | Recherche dans une longue liste | `ListeRecherche` (V2, si > 50 options) | Motif « combobox » ARIA |
 | Choix | `CaseACocher`, `GroupeRadio`, `Interrupteur` | Éléments natifs stylisés ; `fieldset`/`legend` |
