@@ -1,0 +1,3 @@
+# Fins de ligne Unix (LF) pour tous les fichiers texte, sous Windows comme ailleurs :
+# évite que Prettier signale des fichiers convertis en CRLF par Git.
+* text=auto eol=lf
