@@ -31,7 +31,7 @@ Décisions obtenues le 12/11/2026 : Q-002 (dépôt public), DEC-008 (couleurs et
 |---|---|---|---|---|
 | T1.01 | Initialiser le projet | Décisions de démarrage | TECH-001, 010–013, 020–022, 030 | Terminée (12/11/2026, PR #1) |
 | T1.02 | Valider l'API Grist (sonde) | T1.01 | VAL-01…19, TECH-060, 064, 065, 080 | Terminée (12/11/2026, PR #2, #3 et clôture) — 14 points confirmés, voir `00` §8 |
-| T1.03 | Intégrer couleurs et polices DSFR, thème, CSP | T1.01 | UX-020, 023, TECH-113, 120 | À faire |
+| T1.03 | Intégrer couleurs et polices DSFR, thème, CSP | T1.01 | UX-020, 023, TECH-113, 120 | Terminée (12/11/2026) — VAL-12 à confirmer après publication |
 | T1.22 | Composants de base et vitrine | T1.03 | UX-004–009, 020–022 | À faire |
 | T1.04 | Modèles du domaine | T1.01 | TECH-031, 071 | À faire |
 | T1.05 | Encodage Grist | T1.02, T1.04 | TECH-070, 071, ERR-07–09 | À faire |
@@ -69,7 +69,7 @@ Ordre d'exécution conseillé : T1.01, T1.02, T1.03, T1.22, T1.04 à T1.13, T1.2
 - DoD : résultats consignés dans `00` §8 avec « confirmé / infirmé / partiel » ; si VAL-01 est infirmé, `DEC-006` est réexaminée et `02` §5.8 ajusté avant T1.08.
 
 **T1.03 — Intégrer couleurs et polices DSFR, thème, CSP**
-- Fichiers : `src/main.tsx`, `src/theme-initial.ts`, `index.html` (CSP), `src/styles/variables.css`, `src/styles/base.css`, éventuellement `scripts/extraire-tokens-dsfr.mjs`.
+- Fichiers : `src/main.tsx`, `src/ui/theme.ts`, `src/store/preferences.ts`, `src/ui/composants/base/InterrupteurTheme.tsx`, `index.html` (CSP), `src/styles/variables.css`, `src/styles/base.css`, `.dsfr.yml` (acceptation des modalités, DEC-030). L'extraction des variables (`scripts/extraire-tokens-dsfr.mjs`) s'est révélée inutile : `core` convient.
 - Instructions : installer `@gouvfr/dsfr@1.15.4` (la responsable accepte elle-même les modalités) ; importer **seulement** `core` et `scheme` (`07` §1) ; vérifier l'absence d'effets indésirables de `core` (sinon repli : extraction des tokens) ; thème Système/Clair/Sombre ; CSP de TECH-113 ; aucun JavaScript DSFR.
 - Tests : `TEST-SEC-07`, `TEST-VIS-02`, `TEST-E2E-THEME`.
 - DoD : police Marianne et couleurs chargées localement (aucune requête externe), clair et sombre fonctionnels.

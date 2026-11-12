@@ -1,3 +1,14 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "declaration-no-important": true,
+    "selector-class-pattern": [
+      "^sg-[a-z0-9]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      {
+        "message": "Classes du projet uniquement, préfixe « sg- » et nommage BEM ; aucune classe DSFR « fr-* » (docs/07 §8)."
+      }
+    ]
+  }
 }

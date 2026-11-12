@@ -1,0 +1,33 @@
+/*
+ * Variables du projet (préfixe « sg- »), toutes adossées aux variables de couleur du DSFR (docs/07 §3).
+ * Les variables DSFR changent seules entre thème clair et sombre : on ne code jamais une couleur en dur.
+ */
+:root {
+  /* Fonds */
+  --sg-fond: var(--background-default-grey);
+  --sg-fond-alterne: var(--background-alt-grey);
+  --sg-fond-contraste: var(--background-contrast-grey);
+  --sg-fond-action: var(--background-action-high-blue-france);
+
+  /* Textes */
+  --sg-texte: var(--text-default-grey);
+  --sg-texte-titre: var(--text-title-grey);
+  --sg-texte-secondaire: var(--text-mention-grey);
+  --sg-texte-action: var(--text-action-high-blue-france);
+  --sg-texte-sur-action: var(--text-inverted-blue-france);
+
+  /* Bordures */
+  --sg-bordure: var(--border-default-grey);
+  --sg-bordure-forte: var(--border-plain-grey);
+  --sg-bordure-action: var(--border-action-high-blue-france);
+
+  /* Espacements : échelle du DSFR (multiples de 4 px) */
+  --sg-espace-1: 0.25rem;
+  --sg-espace-2: 0.5rem;
+  --sg-espace-3: 0.75rem;
+  --sg-espace-4: 1rem;
+  --sg-espace-5: 1.5rem;
+  --sg-espace-6: 2rem;
+  --sg-espace-7: 2.5rem;
+  --sg-espace-8: 3rem;
+}

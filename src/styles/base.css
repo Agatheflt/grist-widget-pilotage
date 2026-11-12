@@ -1,0 +1,104 @@
+/*
+ * Mise en page de base du widget dans la section Grist (docs/07 §4).
+ * La police Marianne et la typographie de base viennent du « cœur » du DSFR.
+ */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--sg-fond);
+  color: var(--sg-texte);
+}
+
+.sg-application {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.sg-barre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sg-espace-2) var(--sg-espace-4);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sg-espace-2) var(--sg-espace-4);
+  background-color: var(--sg-fond-alterne);
+  border-bottom: 1px solid var(--sg-bordure);
+}
+
+.sg-barre__titre {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--sg-texte-titre);
+}
+
+.sg-contenu {
+  flex: 1;
+  padding: var(--sg-espace-4);
+}
+
+.sg-version {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--sg-texte-secondaire);
+}
+
+/* Interrupteur « Mode sombre » (DEC-029) */
+.sg-interrupteur {
+  display: inline-flex;
+  gap: var(--sg-espace-2);
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--sg-espace-2);
+  font: inherit;
+  color: var(--sg-texte);
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.sg-interrupteur__piste {
+  position: relative;
+  width: 2.5rem;
+  height: 1.5rem;
+  background-color: var(--sg-fond);
+  border: 1px solid var(--sg-bordure-action);
+  border-radius: 0.75rem;
+}
+
+.sg-interrupteur__piste::after {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1rem;
+  height: 1rem;
+  content: '';
+  background-color: var(--sg-bordure-action);
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+
+.sg-interrupteur[aria-checked='true'] .sg-interrupteur__piste {
+  background-color: var(--sg-fond-action);
+}
+
+.sg-interrupteur[aria-checked='true'] .sg-interrupteur__piste::after {
+  background-color: var(--sg-texte-sur-action);
+  transform: translateX(1rem);
+}
+
+.sg-interrupteur:focus-visible {
+  outline: 2px solid var(--sg-bordure-action);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-interrupteur__piste::after {
+    transition: none;
+  }
+}
