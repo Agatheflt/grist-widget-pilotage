@@ -39,6 +39,17 @@ Si la sonde s'affiche avec « Connecté à Grist », **VAL-15 est validé** : l'
 | 12 | VAL-16 (le lendemain) | Rouvre `SondeTest` sans rien modifier : la colonne `Aujourdhui` affiche-t-elle la nouvelle date ? |
 | 13 | **Supprimer** (nettoyage) | Supprime les tables de test ; supprime à la main la page créée par VAL-18 |
 
+## 3 bis. Deuxième passage (sonde corrigée) — 5 minutes
+
+1. Recharge la page du document (F5) pour charger la nouvelle version de la sonde.
+2. **Supprimer** (en bas) : retire toutes les anciennes tables « Sonde… ».
+3. **Créer**, une seule fois.
+4. **Écrire et relire**.
+5. **Vérifier MajLe** : on attend une ligne verte « OK ».
+6. Menu **⋮** de la section › **Widget options** › rubrique **Data** (ou « Select Data ») : choisis **SondeSynchro**. Le journal doit afficher « Table liée à la section du widget : SondeSynchro ».
+7. **Tester la synchronisation** : on attend une ligne verte « OK » et une ligne VAL-02 indiquant le nombre d'événements.
+8. **Copier le rapport** et colle-le dans la conversation.
+
 ## 4. Essais avancés sur les règles d'accès (VAL-17, VAL-19)
 
 À faire seulement si tu disposes d'un second compte Grist, sinon on les reprendra en T1.21.

@@ -5,6 +5,7 @@ import {
   actionsSuppressionTables,
   afficherValeurRelue,
   colonne,
+  reglagesRecalcul,
   compterLignes,
   dateEnSecondesUTC,
   decrireFormatTable,
@@ -72,6 +73,31 @@ describe('actions de la sonde', () => {
 
   it('ne supprime rien quand il n’y a aucune table de test', () => {
     expect(actionsSuppressionTables(['Test_table'])).toEqual([]);
+  });
+});
+
+describe('réglage de MajLe (VAL-11)', () => {
+  it('applique recalcWhen par ModifyColumn après la création de SondeTest', () => {
+    const actions = actionsCreationTables();
+    const creation = actions.findIndex((a) => a[0] === 'AddTable' && a[1] === 'SondeTest');
+    const reglage = actions.findIndex((a) => a[0] === 'ModifyColumn' && a[2] === 'MajLe');
+    expect(reglage).toBeGreaterThan(creation);
+    expect(actions[reglage]?.[3]).toEqual({ recalcWhen: 2, recalcDeps: null });
+  });
+
+  it('lit le réglage de recalcul dans la structure du document', () => {
+    const tables = { id: [1, 2], tableId: ['Autre', 'SondeTest'] };
+    const colonnes = {
+      id: [10, 11],
+      parentId: [1, 2],
+      colId: ['MajLe', 'MajLe'],
+      recalcWhen: [0, 2],
+      recalcDeps: [null, null],
+    };
+    expect(reglagesRecalcul(colonnes, tables, 'SondeTest', 'MajLe')).toBe(
+      'recalcWhen = 2, recalcDeps = null',
+    );
+    expect(reglagesRecalcul(colonnes, tables, 'SondeTest', 'Absente')).toBe('colonne introuvable');
   });
 });
 

@@ -7,6 +7,7 @@ import {
   actionsSuppressionTables,
   afficherValeurRelue,
   colonne,
+  reglagesRecalcul,
   compterLignes,
   dateEnSecondesUTC,
   decrireFormatTable,
@@ -52,6 +53,11 @@ function noter(essai: string, statut: Statut, message: string): void {
   if (statut === 'OK') ligne.className = 'ok';
   if (statut === 'ÉCHEC') ligne.className = 'echec';
   elementJournal?.append(ligne);
+}
+
+/** Attend le nombre de millisecondes indiqué. */
+function attendre(millisecondes: number): Promise<void> {
+  return new Promise((resoudre) => setTimeout(resoudre, millisecondes));
 }
 
 /** Message d'erreur lisible, quelle que soit la forme de l'erreur. */
@@ -223,6 +229,88 @@ const essais: Essai[] = [
       }),
   },
   {
+    id: 'VAL-11 (bis)',
+    titre: 'La colonne MajLe change-t-elle après une modification ?',
+    consigne:
+      'Affiche le réglage de recalcul de MajLe, ajoute une ligne, la modifie 2 secondes plus tard, puis compare MajLe avant et après.',
+    bouton: 'Vérifier MajLe',
+    executer: () =>
+      avecGrist('VAL-11', async (api) => {
+        const reglages = reglagesRecalcul(
+          await api.docApi.fetchTable('_grist_Tables_column'),
+          await api.docApi.fetchTable('_grist_Tables'),
+          'SondeTest',
+          'MajLe',
+        );
+        noter('VAL-11', 'INFO', `Réglage de MajLe : ${reglages}.`);
+        const creation = await api.docApi.applyUserActions([
+          ['AddRecord', 'SondeTest', null, { Titre: 'Essai MajLe' }],
+        ]);
+        const id = identifiantsCrees(creation)[0];
+        const lireMajLe = async () => {
+          const table = await api.docApi.fetchTable('SondeTest');
+          return colonne(table, 'MajLe')[colonne(table, 'id').indexOf(id)];
+        };
+        const avant = await lireMajLe();
+        await attendre(2000);
+        await api.docApi.applyUserActions([
+          ['UpdateRecord', 'SondeTest', id, { Titre: 'Essai MajLe modifié' }],
+        ]);
+        const apres = await lireMajLe();
+        const change = typeof avant === 'number' && typeof apres === 'number' && apres > avant;
+        noter(
+          'VAL-11',
+          change ? 'OK' : 'ÉCHEC',
+          `MajLe avant : ${JSON.stringify(avant)}, après modification : ${JSON.stringify(apres)}.`,
+        );
+      }),
+  },
+  {
+    id: 'VAL-01 / VAL-02',
+    titre: 'Le widget est-il prévenu d’une modification dans une autre table ?',
+    consigne:
+      'Prérequis : dans « Widget options › Data », choisissez SondeSynchro (le journal doit afficher « Table liée … SondeSynchro »). ' +
+      'L’essai modifie une ligne de SondeTest, puis 20 lignes à la suite, et compte les événements onRecords reçus.',
+    bouton: 'Tester la synchronisation',
+    executer: () =>
+      avecGrist('VAL-01', async (api) => {
+        if (tableLiee !== 'SondeSynchro') {
+          noter(
+            'VAL-01',
+            'ÉCHEC',
+            `La section est liée à ${String(tableLiee)} : choisissez SondeSynchro puis recommencez.`,
+          );
+          return;
+        }
+        const ids = colonne(await api.docApi.fetchTable('SondeTest'), 'id');
+        if (ids.length === 0) {
+          noter('VAL-01', 'ÉCHEC', 'SondeTest est vide : lancez d’abord l’essai VAL-04.');
+          return;
+        }
+        const depart = nbEvenementsOnRecords;
+        await api.docApi.applyUserActions([
+          ['UpdateRecord', 'SondeTest', ids[0], { Nombre: Date.now() % 1000 }],
+        ]);
+        await attendre(2000);
+        const recus = nbEvenementsOnRecords - depart;
+        noter(
+          'VAL-01',
+          recus > 0 ? 'OK' : 'ÉCHEC',
+          `Modification d'une cellule de SondeTest : ${recus} événement(s) onRecords reçu(s) via SondeSynchro.`,
+        );
+        const departRafale = nbEvenementsOnRecords;
+        for (let i = 0; i < 20; i += 1) {
+          await api.docApi.applyUserActions([['UpdateRecord', 'SondeTest', ids[0], { Nombre: i }]]);
+        }
+        await attendre(2000);
+        noter(
+          'VAL-02',
+          'INFO',
+          `20 écritures successives : ${nbEvenementsOnRecords - departRafale} événement(s) reçu(s).`,
+        );
+      }),
+  },
+  {
     id: 'VAL-05',
     titre: 'Atomicité d’un lot d’actions',
     consigne: 'Envoie un lot dont la seconde action est invalide : la première ne doit pas être appliquée.',
@@ -333,11 +421,10 @@ const essais: Essai[] = [
       }),
   },
   {
-    id: 'VAL-01 / VAL-02 (manuel)',
-    titre: 'Synchronisation multi-tables',
+    id: 'VAL-01 (manuel, complément)',
+    titre: 'Modification faite directement dans Grist',
     consigne:
-      'Dans les options du widget, choisissez SondeSynchro comme table liée. Modifiez ensuite une cellule de SondeTest dans une vue ' +
-      'tableau Grist, puis collez 20 lignes d’un coup : notez combien de lignes « onRecords » apparaissent dans le journal.',
+      'Section liée à SondeSynchro : modifiez une cellule de SondeTest dans une vue tableau Grist ; une ligne « onRecords » doit apparaître.',
   },
   {
     id: 'VAL-06 (manuel)',

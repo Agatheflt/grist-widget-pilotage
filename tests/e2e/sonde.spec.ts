@@ -7,7 +7,7 @@ test('la sonde affiche ses essais et le journal', async ({ page }) => {
   await expect(
     page.getByRole('heading', { level: 1, name: "Sonde de validation de l'API Grist" }),
   ).toBeVisible();
-  await expect(page.getByRole('heading', { level: 3 })).toHaveCount(13);
+  await expect(page.getByRole('heading', { level: 3 })).toHaveCount(15);
   await expect(page.getByRole('button', { name: 'Créer' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Copier le rapport' })).toBeVisible();
 });

@@ -81,8 +81,9 @@ export function colonne(resultat: unknown, nom: string): unknown[] {
 
 /**
  * Actions de création des tables de test (VAL-01, VAL-04, VAL-11, VAL-16, VAL-17).
- * Les colonnes de déclenchement utilisent recalcWhen : 0 = à la création, 2 = à toute modification
- * (paramétrage à confirmer par VAL-11).
+ * Les colonnes de déclenchement utilisent recalcWhen : 0 = à la création, 2 = à toute modification.
+ * Premier essai (12/11/2026) : recalcWhen passé dans AddTable semble ignoré (MajLe ne change pas
+ * après une modification). Il est donc aussi appliqué ensuite par ModifyColumn.
  */
 export function actionsCreationTables(): ActionGrist[] {
   return [
@@ -105,6 +106,7 @@ export function actionsCreationTables(): ActionGrist[] {
         { id: 'Aujourdhui', type: 'Date', isFormula: true, formula: 'TODAY()' },
       ],
     ],
+    ['ModifyColumn', 'SondeTest', 'MajLe', { recalcWhen: 2, recalcDeps: null }],
     [
       'AddTable',
       'SondeSynchro',
@@ -134,6 +136,23 @@ export function actionsSuppressionTables(tablesDuDocument: string[]): ActionGris
     .filter((table) => table.startsWith(PREFIXE))
     .reverse()
     .map((table) => ['RemoveTable', table]);
+}
+
+/** Réglages de recalcul d'une colonne, lus dans _grist_Tables_column (VAL-11). */
+export function reglagesRecalcul(
+  colonnesDuDocument: unknown,
+  tablesDuDocument: unknown,
+  tableId: string,
+  colId: string,
+): string {
+  const refTable = colonne(tablesDuDocument, 'id')[colonne(tablesDuDocument, 'tableId').indexOf(tableId)];
+  const ids = colonne(colonnesDuDocument, 'colId');
+  const parents = colonne(colonnesDuDocument, 'parentId');
+  const position = ids.findIndex((id, i) => id === colId && parents[i] === refTable);
+  if (position < 0) return 'colonne introuvable';
+  const quand = colonne(colonnesDuDocument, 'recalcWhen')[position];
+  const deps = colonne(colonnesDuDocument, 'recalcDeps')[position];
+  return `recalcWhen = ${JSON.stringify(quand)}, recalcDeps = ${JSON.stringify(deps)}`;
 }
 
 /**
